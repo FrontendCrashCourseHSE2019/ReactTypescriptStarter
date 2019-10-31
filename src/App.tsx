@@ -1,26 +1,60 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {TestComponent} from "./Test";
+import {InputComponent} from "./InputComponent";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class ToDoItem {
+
+    title: string;
+
+    constructor(title: string) {
+        this.title = title;
+    }
+
 }
+
+interface AppState {
+
+    items: ToDoItem[];
+
+}
+
+export class App extends React.Component<{}, AppState> {
+
+
+    constructor(props: Readonly<{}>) {
+        super(props);
+        this.state = {
+            items: []
+        };
+    }
+
+    onNewTodoHandle(title: string) {
+        let newTodoItem = new ToDoItem(title);
+        this.setState({
+            items: [...this.state.items, newTodoItem]
+        });
+    }
+
+    render(): ReactNode {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo"/>
+                    <InputComponent onNewTodoCreated={title => this.onNewTodoHandle(title)}/>
+
+                    {this.state.items.map(todoItem => {
+                        return (
+                            <div>{todoItem.title}</div>
+                        )
+                    })}
+
+                </header>
+            </div>
+        );
+    }
+
+};
 
 export default App;
