@@ -1,7 +1,5 @@
 import React, {ReactNode} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {TestComponent} from "./Test";
 import {InputComponent} from "./InputComponent";
 
 class ToDoItem {
@@ -40,17 +38,24 @@ export class App extends React.Component<{}, AppState> {
     render(): ReactNode {
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <InputComponent onNewTodoCreated={title => this.onNewTodoHandle(title)}/>
 
-                    {this.state.items.map(todoItem => {
-                        return (
-                            <div>{todoItem.title}</div>
-                        )
-                    })}
+                <main className="py-md-3 pl-md-5">
 
-                </header>
+                    <div className="container">
+
+                        <InputComponent onNewTodoCreated={title => this.onNewTodoHandle(title)}/>
+
+                        <div id="items-container">
+                            {this.state.items.map(todoItem => {
+                                return (
+                                    <div>{todoItem.title}</div>
+                                )
+                            })}
+                        </div>
+
+                    </div>
+                </main>
+
             </div>
         );
     }

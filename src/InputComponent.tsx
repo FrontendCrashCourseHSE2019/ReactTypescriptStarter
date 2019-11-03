@@ -17,7 +17,7 @@ export class InputComponent extends React.Component<InputComponentProps, InputCo
     constructor(props: Readonly<InputComponentProps>) {
         super(props);
         this.state = {
-          currentValue: ""
+            currentValue: ""
         };
     }
 
@@ -33,9 +33,14 @@ export class InputComponent extends React.Component<InputComponentProps, InputCo
 
     render(): ReactNode {
         return (
-            <div>
-                <input placeholder={"Enter new title"} onChange={event => this.handleChanges(event.target.value)} value={this.state.currentValue}/>
-                <button onClick={event => this.handleSave()}>Save</button>
+            <div className="input-group mb-3">
+                <input type="text" onChange={event => this.handleChanges(event.target.value)}
+                       value={this.state.currentValue} className="form-control" placeholder="Дело..."/>
+                <div className="input-group-append">
+                    <button className="btn btn-outline-secondary" onClick={event => this.handleSave()}
+                            type="button">Добавить
+                    </button>
+                </div>
             </div>
         );
     }
